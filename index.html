@@ -824,7 +824,7 @@
         }
         if (query && !searchHistory.includes(query)) {
           searchHistory.unshift(query);
-          if (searchHistory.length > 10) searchHistory.pop();
+          if (searchHistory.length > 20) searchHistory.pop();
           saveSearchHistory();
           renderSearchHistory();
         }
