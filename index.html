@@ -97,7 +97,7 @@
         text-align: center;
         padding: 5px;
         position: relative;
-        color:rgba(20, 41, 100, 0.767)
+        color: rgba(20, 41, 100, 0.767);
       }
       /* 当日のセル：ピンクサークルで背景ハイライト */
       td.today::before {
@@ -148,7 +148,6 @@
       #search-btn {
         display: none;
       }
-
 
       /* 検索履歴 */
       #search-history {
@@ -215,7 +214,7 @@
       #bookmark-list li button {
         margin-left: 5px;
       }
-      button{
+      button {
         padding: 5px;
         border-radius: 70px;
         border: none;
@@ -234,7 +233,7 @@
         width: 100%;
         height: 90%;
         padding: 5px;
-        border:   rgb(169, 226, 248) 1px solid;
+        border: rgb(169, 226, 248) 1px solid;
         border-radius: 2px;
         background-color: #fffff6a9;
         font-size: 26px;
@@ -244,7 +243,7 @@
       ::selection {
         background-color: #ff00b36c;
       }
-      ::-webkit-scrollbar{
+      ::-webkit-scrollbar {
         display: none;
       }
 
@@ -841,6 +840,37 @@
           a.download = "localStorage_export.json";
           a.click();
           URL.revokeObjectURL(url);
+        });
+      document
+        .getElementById("import-btn")
+        .addEventListener("click", function () {
+          document.getElementById("import-file").click();
+        });
+
+      document
+        .getElementById("import-file")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            try {
+              const importedData = JSON.parse(e.target.result);
+
+              // LocalStorageをクリアして新しいデータで上書き
+              localStorage.clear();
+              for (let key in importedData) {
+                localStorage.setItem(key, importedData[key]);
+              }
+
+              alert("インポートが完了しました。ページをリロードします。");
+              location.reload();
+            } catch (error) {
+              alert("インポートに失敗しました: " + error.message);
+            }
+          };
+          reader.readAsText(file);
         });
 
       document
