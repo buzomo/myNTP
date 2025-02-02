@@ -38,7 +38,6 @@
       }
 
       #container {
-        max-width: 1300px;
         margin: 0 auto;
       }
 
@@ -222,6 +221,12 @@
         #bottom-container {
           flex-direction: column;
         }
+   
+      }
+      @media (max-width: 600px) {
+        #calendar {
+          display: none;
+        }
       }
       td.today {
         color: red;
@@ -253,6 +258,7 @@
           <option value="bing">Bing</option>
           <option value="chatgpt">ChatGPT</option>
           <option value="google">Google I'm Feeling Lucky</option>
+          <option value="raindrop">Raindrop</option>
           <option value="yahoo">Yahooリアルタイム</option>
         </select>
         <button id="search-btn">Search</button>
@@ -597,7 +603,7 @@
         const now = new Date();
         const year = now.getFullYear();
         const month = now.getMonth();
-        const range = [-2, -1, 0, 1, 2]; // 表示する月の相対位置（前々月〜次次月）
+        const range = [-3,-2, -1, 0, 1, 2,3]; // 表示する月の相対位置（前々月〜次次月）
 
         range.forEach((offset) => {
           const targetDate = new Date(year, month + offset, 1); // 自動で年の繰り上がり・繰り下がりを処理
@@ -771,6 +777,11 @@
           case "yahoo":
             url =
               "https://search.yahoo.co.jp/realtime/search?p=" +
+              encodeURIComponent(query);
+            break;
+          case "raindrop":
+            url =
+              "https://app.raindrop.io/my/0/" +
               encodeURIComponent(query);
             break;
         }
