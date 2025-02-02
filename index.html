@@ -221,7 +221,6 @@
         #bottom-container {
           flex-direction: column;
         }
-   
       }
       @media (max-width: 600px) {
         #calendar {
@@ -603,7 +602,7 @@
         const now = new Date();
         const year = now.getFullYear();
         const month = now.getMonth();
-        const range = [-3,-2, -1, 0, 1, 2,3]; // 表示する月の相対位置（前々月〜次次月）
+        const range = [-3, -2, -1, 0, 1, 2, 3]; // 表示する月の相対位置（前々月〜次次月）
 
         range.forEach((offset) => {
           const targetDate = new Date(year, month + offset, 1); // 自動で年の繰り上がり・繰り下がりを処理
@@ -780,9 +779,7 @@
               encodeURIComponent(query);
             break;
           case "raindrop":
-            url =
-              "https://app.raindrop.io/my/0/" +
-              encodeURIComponent(query);
+            url = "https://app.raindrop.io/my/0/" + encodeURIComponent(query);
             break;
         }
         if (query && !searchHistory.includes(query)) {
@@ -804,6 +801,37 @@
           a.download = "localStorage_export.json";
           a.click();
           URL.revokeObjectURL(url);
+        });
+      document
+        .getElementById("import-btn")
+        .addEventListener("click", function () {
+          document.getElementById("import-file").click();
+        });
+
+      document
+        .getElementById("import-file")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            try {
+              const importedData = JSON.parse(e.target.result);
+
+              // LocalStorageをクリアして新しいデータで上書き
+              localStorage.clear();
+              for (let key in importedData) {
+                localStorage.setItem(key, importedData[key]);
+              }
+
+              alert("インポートが完了しました。ページをリロードします。");
+              location.reload();
+            } catch (error) {
+              alert("インポートに失敗しました: " + error.message);
+            }
+          };
+          reader.readAsText(file);
         });
 
       document
