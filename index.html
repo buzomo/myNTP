@@ -298,7 +298,19 @@
           <option value="chatgpt">ChatGPT</option>
           <option value="google">Google I'm Feeling Lucky</option>
           <option value="raindrop">Raindrop</option>
-          <option value="yahoo">Yahooリアルタイム</option>
+          <option value="amazon">Amazon(JP)</option>
+          <option value="youtube">YouTube</option>
+          <option value="hatena">Hatena Bookmark</option>
+          <option value="realtime">Realtime Search</option>
+          <option value="perplexity">Perplexity</option>
+          <option value="wikipedia">Wikipedia(Ja)</option>
+          <option value="maps">Maps(Google)</option>
+          <option value="allabout">AllAbout</option>
+          <option value="matomo">Matomo Search</option>
+          <option value="scholar">Google Scholar</option>
+          <option value="pinterest">Pinterest</option>
+          <option value="idobata">Idobata</option>
+          <option value="cosense">Cosense</option>
         </select>
         <button id="search-btn">Search</button>
         <div id="search-history"></div>
@@ -820,6 +832,53 @@
             break;
           case "raindrop":
             url = "https://app.raindrop.io/my/0/" + encodeURIComponent(query);
+            break;
+          case "amazon":
+            url = "https://www.amazon.co.jp/s?k=" + encodeURIComponent(query);
+            break;
+          case "youtube":
+            url = "https://www.youtube.com/results?search_query=" + query;
+            break;
+          case "hatena":
+            url =
+              "https://b.hatena.ne.jp/search/text?q=" +
+              encodeURIComponent(query);
+            break;
+          case "realtime":
+            url =
+              "https://search.yahoo.co.jp/realtime/search?p=" +
+              encodeURIComponent(query);
+            break;
+          case "perplexity":
+            url =
+              "https://www.perplexity.ai/search?q=" + encodeURIComponent(query);
+            break;
+          case "wikipedia":
+            url = "https://ja.wikipedia.org/wiki/" + encodeURIComponent(query);
+            break;
+          case "maps":
+            url =
+              "https://www.google.com/maps/search/" + encodeURIComponent(query);
+            break;
+          case "allabout":
+            url = "https://search.allabout.co.jp/?q=" + query;
+            break;
+          case "matomo":
+            url =
+              "https://www.google.com/search?q=site%3Aac.jp+OR+site%3Ago.jp+OR+site%3Alg.jp+" +
+              query;
+            break;
+          case "scholar":
+            url = "https://scholar.google.com/scholar?q=" + query;
+            break;
+          case "pinterest":
+            url = "https://www.pinterest.com/search/pins/?q=" + query;
+            break;
+          case "idobata":
+            url = "https://scrapbox.io/villagepump/search/page?q=" + query;
+            break;
+          case "cosense":
+            url = `https://www.google.com/search?q=${query}+site%3Ascrapbox.io`;
             break;
         }
         if (query && !searchHistory.includes(query)) {
